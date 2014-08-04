@@ -36,3 +36,9 @@ git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 # install vundle
 vim +PluginInstall +qall
+
+# install tern's deps
+cd ~/.vim/bundle/tern_for_vim/
+npm i
+cd ${CURR}
+exit 
