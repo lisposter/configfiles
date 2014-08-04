@@ -31,14 +31,19 @@ rm -rf ~/.vimrc
 ln -s ${CURR}/config/vimrc ~/.vimrc
 
 # install vundle
-rm -rf ~/.vim/bundle/Vundle.vim
-git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+if [ ! -e ~/.vim/bundle/Vundle.vim ]; then
+    git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+fi
 
 # install vundle
-vim +PluginInstall +qall
+mvim +PluginInstall +qall
 
 # install tern's deps
 cd ~/.vim/bundle/tern_for_vim/
 npm i
+
+cd ~/.vim/bundle/YouCompleteMe
+./install.sh
+
 cd ${CURR}
 exit 
