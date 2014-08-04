@@ -1,0 +1,455 @@
+
+" With a map leader it's possible to do extra key combinations
+" like <leader>w saves the current file
+let mapleader = ","
+let g:mapleader = ","
+
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+" langs
+Plugin 'pangloss/vim-javascript'
+Plugin 'mattn/emmet-vim'
+    let g:user_emmet_leader_key='<C-E>'
+Plugin 'othree/html5.vim'
+Plugin 'digitaltoad/vim-jade'
+Plugin 'hail2u/vim-css3-syntax'
+Plugin 'moll/vim-node'
+
+" Completion
+Plugin 'Raimondi/delimitMate'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'marijnh/tern_for_vim'
+Plugin 'SirVer/ultisnips'
+" Plugin 'honza/vim-snippets'
+" Plugin '1995eaton/vim-better-javascript-completion'
+
+
+
+" UI
+Plugin 'lisposter/vim-blackboard'
+" Plugin 'rickharris/vim-blackboard'
+Plugin 'twerth/ir_black'
+Plugin 'scrooloose/nerdtree'
+    noremap <leader>n :NERDTreeToggle<CR>
+    let NERDTreeShowBookmarks=1
+    let NERDTreeIgnore=[]
+    " These prevent accidentally loading files while in the NERDTree panel
+    autocmd FileType nerdtree noremap <buffer> <c-left> <nop>
+    autocmd FileType nerdtree noremap <buffer> <c-h> <nop>
+    autocmd FileType nerdtree noremap <buffer> <c-right> <nop>
+    autocmd FileType nerdtree noremap <buffer> <c-l> <nop>
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'majutsushi/tagbar'
+    nmap <F8> :TagbarToggle<CR>
+
+Plugin 'bufexplorer.zip'
+    noremap <leader>f :BufExplorer<CR>
+Plugin 'bling/vim-airline'
+    let g:airline_theme="luna"
+
+" Code Display
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'ap/vim-css-color'
+
+" Command
+Plugin 'tpope/vim-surround'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'terryma/vim-multiple-cursors'
+
+
+" Integrations
+Plugin 'tpope/vim-fugitive'
+    nnoremap <leader>git :Git 
+    nnoremap <leader>gd :Gdiff<cr>
+    nnoremap <leader>gs :Gstatus<cr>
+    nnoremap <leader>gw :Gwrite<cr>
+    nnoremap <leader>ga :Gadd<cr>
+    nnoremap <leader>gb :Gblame<cr>
+    nnoremap <leader>gco :Gcheckout<cr>
+    nnoremap <leader>gci :Gcommit<cr>
+    nnoremap <leader>gm :Gmove<cr>
+    nnoremap <leader>gr :Gremove<cr>
+    nnoremap <leader>gl :Shell git gl -18<cr>:wincmd \|<cr>
+
+Plugin 'airblade/vim-gitgutter'
+    let g:gitgutter_enabled = 1
+
+Plugin 'scrooloose/syntastic'
+    let g:syntastic_javascript_checkers = ['jshint']
+    let g:syntastic_html_checkers = ['']
+" Plugin 'Shougo/vimshell.vim'
+
+
+Plugin 'kien/ctrlp.vim'
+    let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/]\.(git|hg|svn|)$',
+    \ 'file': '\v\.(exe|so|dll)$',
+    \ 'link': 'some_bad_symbolic_links',
+    \ }
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList          - list configured plugins
+" :PluginInstall(!)    - install (update) plugins
+" :PluginSearch(!) foo - search (or refresh cache first) for foo
+" :PluginClean(!)      - confirm (or auto-approve) removal of unused plugins
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set history=100
+
+" Set to auto read when a file is changed from the outside
+set autoread
+
+set clipboard=unnamed
+
+" Fast saving
+nmap <leader>w :w!<cr>
+
+" :W sudo saves the file 
+" (useful for handling the permission-denied error)
+" command w!! w !sudo tee % > /dev/null
+
+"if has("autocmd") && exists("+omnifunc")
+"autocmd Filetype *
+    "\if &omnifunc == "" |
+    "\setlocal omnifunc=syntaxcomplete#Complete |
+    "\endif
+"endif
+"" Enable omni completion.
+"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+"autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+"autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+"autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+"autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" =>Movement, Tabs, Windows, Buffer
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
+nmap <M-j> mz:m+<cr>`z
+nmap <M-k> mz:m-2<cr>`z
+vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+
+if has("mac") || has("macunix")
+  nmap <D-j> <M-j>
+  nmap <D-k> <M-k>
+  vmap <D-j> <M-j>
+  vmap <D-k> <M-k>
+endif
+
+" Treat long lines as break lines
+map j gj
+map k gk
+
+" go to prev file
+map <Leader>p <C-^> 
+
+" Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+
+" Disable highlight when <leader><cr> is pressed
+map <silent> <leader><cr> :noh<cr>
+
+" Close the current buffer
+map <leader>bd :Bclose<cr>
+
+" Close all the buffers
+map <leader>ba :1,1000 bd!<cr>
+
+" Useful mappings for managing tabs
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove
+map <leader>t<leader> :tabnext 
+
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+
+" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
+" Remember info about open buffers on close
+set viminfo^=%
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => VIM user interface
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set so=8
+
+" Turn on the WiLd menu
+set wildmenu
+
+" Ignore compiled files
+set wildignore=*.o,*~,*.pyc,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store,*/node_modules/*
+
+" Always show current position
+set ruler
+
+set nu
+
+set linespace=3
+
+" Height of cmd line
+set cmdheight=2
+
+" A buffer becomes hidden when it is abandoned
+" set hid
+
+
+" Configure backspace so it acts as it should act
+set backspace=eol,start,indent
+set whichwrap+=<,>,h,l
+
+" Ignore case when searching
+set ignorecase
+
+" When searching try to be smart about cases 
+set smartcase
+
+" Highlight search results
+set hlsearch
+
+" Makes search act like search in modern browsers
+set incsearch 
+
+" Don't redraw while executing macros (good performance config)
+set lazyredraw 
+
+" For regular expressions turn magic on
+set magic
+
+" Show matching brackets when text indicator is over them
+set showmatch 
+" How many tenths of a second to blink when matching brackets
+set mat=2
+
+" No annoying sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+" Add a bit extra margin to the left
+" set foldcolumn=1
+
+" Always show the status line
+set laststatus=2
+
+" Format the status line
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Colors and Fonts
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Enable syntax highlighting
+syntax enable 
+
+set background=dark
+
+colorscheme ir_black 
+
+set t_Co=256
+
+set cursorline " highlight current line
+    highlight CursorLine          guibg=#003853 ctermbg=24  gui=none cterm=none
+
+" set gitgutter bar's color
+hi SignColumn guibg=#111111  ctermbg=darkgray
+
+" draw a shadow range for indicated the 80 cols
+let &colorcolumn="80,".join(range(120,999),",")
+highlight ColorColumn ctermbg=235 guibg=#2c2d27
+hi ColorColumn  guibg=#111111  ctermbg=darkgray
+
+" Set extra options when running in GUI mode
+if has("gui_running")
+    let macvim_skip_colorscheme=1
+    set guifont=Menlo\ Regular:h14
+    set guioptions-=lT
+    " set guioptions-=e
+    set guitablabel=%M\ %t
+endif
+
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Files, backups and undo
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Turn backup off, since most stuff is in SVN, git et.c anyway...
+set nobackup
+set nowb
+set noswapfile
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Text, tab and indent related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Invisible characters 
+set listchars=trail:.,tab:>-,eol:$,extends:#,nbsp:.
+" set list
+set nolist
+:noremap ,i :set list!<CR> 
+
+" Use spaces instead of tabs
+set expandtab
+
+" Be smart when using tabs ;)
+set smarttab
+
+" 1 tab == 4 spaces
+set shiftwidth=4
+set tabstop=4
+
+" Linebreak on 500 characters
+set lbr
+set tw=500
+
+set ai "Auto indent
+set si "Smart indent
+set wrap "Wrap lines
+
+" awesome, inserts new line without going into insert mode
+map <S-Enter> O<ESC>
+map <Enter> o<ESC>
+
+""""""""""""""""""""""""""""""
+" => Visual mode related
+""""""""""""""""""""""""""""""
+" Visual mode pressing * or # searches for the current selection
+" Super useful! From an idea by Michael Naumann
+vnoremap <silent> * :call VisualSelection('f', '')<CR>
+vnoremap <silent> # :call VisualSelection('b', '')<CR>
+
+
+
+"""""""""""""""""""""""""""""""""""""
+" => Functions
+"""""""""""""""""""""""""""""""""""""
+" Returns true if paste mode is enabled
+function! HasPaste()
+    if &paste
+        return 'PASTE MODE  '
+    en
+    return ''
+endfunction
+
+
+function! CmdLine(str)
+    exe "menu Foo.Bar :" . a:str
+    emenu Foo.Bar
+    unmenu Foo
+endfunction 
+
+function! VisualSelection(direction, extra_filter) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", '\\/.*$^~[]')
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'b'
+        execute "normal ?" . l:pattern . "^M"
+    elseif a:direction == 'gv'
+        call CmdLine("Ack \"" . l:pattern . "\" " )
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    elseif a:direction == 'f'
+        execute "normal /" . l:pattern . "^M"
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
+
+
+" Don't close window, when deleting a buffer
+command! Bclose call <SID>BufcloseCloseIt()
+function! <SID>BufcloseCloseIt()
+   let l:currentBufNum = bufnr("%")
+   let l:alternateBufNum = bufnr("#")
+
+   if buflisted(l:alternateBufNum)
+     buffer #
+   else
+     bnext
+   endif
+
+   if bufnr("%") == l:currentBufNum
+     new
+   endif
+
+   if buflisted(l:currentBufNum)
+     execute("bdelete! ".l:currentBufNum)
+   endif
+endfunction
+
+
+
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Fast editing and reloading of vimrc configs
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <leader>ev :e! ~/.vimrc<cr>
+map <leader>sv :so ~/.vimrc<cr>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Turn persistent undo on 
+"  means that you can undo even when you close a buffer/VIM
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+try
+    set undodir=~/.vim/temp_dirs/undodir
+    set undofile
+catch
+endtry
+
+
+" Disable the arrow keys. Orz.
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
