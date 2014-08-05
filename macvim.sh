@@ -11,7 +11,7 @@ if [ $RETVAL -ne 0 ]; then
 fi
 
 if [ ! -f /usr/local/bin/brew ]; then
-  echo "Installing: brew"
+  echo "Installing: brew ..."
   ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
 else
   echo "Found: brew"
@@ -32,13 +32,16 @@ ln -s ${CURR}/config/vimrc ~/.vimrc
 
 # install vundle
 if [ ! -e ~/.vim/bundle/Vundle.vim ]; then
+    echo "Installing: vim/vundle ..."
     git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 fi
 
 # install vundle
+echo "Installing bundles ..."
 mvim +PluginInstall +qall
 
 # install tern's deps
+echo "Installing tern deps ..."
 cd ~/.vim/bundle/tern_for_vim/
 npm i
 
