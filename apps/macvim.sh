@@ -12,7 +12,7 @@ fi
 
 if [ ! -f /usr/local/bin/brew ]; then
   echo "Installing: brew ..."
-  ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 else
   echo "Found: brew"
 fi
@@ -49,4 +49,4 @@ cd ~/.vim/bundle/YouCompleteMe
 ./install.sh
 
 cd ${CURR}
-exit 
+exit
