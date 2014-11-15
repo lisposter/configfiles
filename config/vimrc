@@ -19,7 +19,7 @@ Plugin 'gmarik/Vundle.vim'
 " langs
 Plugin 'pangloss/vim-javascript'
 Plugin 'mattn/emmet-vim'
-    let g:user_emmet_leader_key='<C-E>'
+    let g:user_emmet_leader_key = '<C-E>'
 Plugin 'othree/html5.vim'
 Plugin 'digitaltoad/vim-jade'
 Plugin 'hail2u/vim-css3-syntax'
@@ -37,25 +37,34 @@ Plugin 'SirVer/ultisnips'
 
 " UI
 Plugin 'lisposter/vim-blackboard'
-" Plugin 'rickharris/vim-blackboard'
-Plugin 'twerth/ir_black'
+" Plugin 'twerth/ir_black'
 Plugin 'scrooloose/nerdtree'
-    noremap <leader>n :NERDTreeToggle<CR>
-    let NERDTreeShowBookmarks=1
-    let NERDTreeIgnore=[]
+    " noremap <leader>n :NERDTreeToggle<CR>
+    let NERDTreeShowBookmarks = 1
+    let NERDTreeIgnore = []
+    let NERDTreeShowHidden = 1
+    let NERDTreeWinSize = 30
     " These prevent accidentally loading files while in the NERDTree panel
     autocmd FileType nerdtree noremap <buffer> <c-left> <nop>
     autocmd FileType nerdtree noremap <buffer> <c-h> <nop>
     autocmd FileType nerdtree noremap <buffer> <c-right> <nop>
     autocmd FileType nerdtree noremap <buffer> <c-l> <nop>
+
 Plugin 'jistr/vim-nerdtree-tabs'
+    let g:nerdtree_tabs_open_on_gui_startup = 0
+    noremap <leader>n :NERDTreeTabsToggle<CR>
+
 Plugin 'majutsushi/tagbar'
     nmap <F8> :TagbarToggle<CR>
 
 Plugin 'bufexplorer.zip'
     noremap <leader>f :BufExplorer<CR>
+
 Plugin 'bling/vim-airline'
-    let g:airline_theme="luna"
+    let g:airline_theme = "base16"
+    let g:airline_left_sep = '▶'
+    let g:airline_right_sep = '◀'
+
 
 " Code Display
 Plugin 'nathanaelkane/vim-indent-guides'
@@ -65,11 +74,12 @@ Plugin 'ap/vim-css-color'
 Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'terryma/vim-multiple-cursors'
+Plugin 'gerw/vim-HiLinkTrace'
 
 
 " Integrations
 Plugin 'tpope/vim-fugitive'
-    nnoremap <leader>git :Git 
+    nnoremap <leader>git :Git
     nnoremap <leader>gd :Gdiff<cr>
     nnoremap <leader>gs :Gstatus<cr>
     nnoremap <leader>gw :Gwrite<cr>
@@ -96,6 +106,9 @@ Plugin 'kien/ctrlp.vim'
     \ 'file': '\v\.(exe|so|dll)$',
     \ 'link': 'some_bad_symbolic_links',
     \ }
+    let g:ctrlp_map = '<c-p>'
+
+Plugin 'editorconfig/editorconfig-vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -126,7 +139,7 @@ set clipboard=unnamed
 " Fast saving
 nmap <leader>w :w!<cr>
 
-" :W sudo saves the file 
+" :W sudo saves the file
 " (useful for handling the permission-denied error)
 " command w!! w !sudo tee % > /dev/null
 
@@ -166,7 +179,7 @@ map j gj
 map k gk
 
 " go to prev file
-map <Leader>p <C-^> 
+map <Leader>p <C-^>
 
 " Smart way to move between windows
 map <C-j> <C-W>j
@@ -189,7 +202,7 @@ map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
-map <leader>t<leader> :tabnext 
+map <leader>t<leader> :tabnext
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
@@ -205,6 +218,10 @@ autocmd BufReadPost *
     \ endif
 " Remember info about open buffers on close
 set viminfo^=%
+
+
+" Find merge conflict markers
+map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -238,23 +255,23 @@ set whichwrap+=<,>,h,l
 " Ignore case when searching
 set ignorecase
 
-" When searching try to be smart about cases 
+" When searching try to be smart about cases
 set smartcase
 
 " Highlight search results
 set hlsearch
 
 " Makes search act like search in modern browsers
-set incsearch 
+set incsearch
 
 " Don't redraw while executing macros (good performance config)
-set lazyredraw 
+set lazyredraw
 
 " For regular expressions turn magic on
 set magic
 
 " Show matching brackets when text indicator is over them
-set showmatch 
+set showmatch
 " How many tenths of a second to blink when matching brackets
 set mat=2
 
@@ -273,37 +290,36 @@ set laststatus=2
 " Format the status line
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
 
+" Disable left scrollbar
+set guioptions-=LT
+set guitablabel=%M\ %t
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
-syntax enable 
+syntax enable
 
 set background=dark
 
-colorscheme ir_black 
+colorscheme blackboard
 
 set t_Co=256
 
-set cursorline " highlight current line
-    highlight CursorLine          guibg=#003853 ctermbg=24  gui=none cterm=none
+" highlight current line
+set cursorline
+highlight CursorLine          guibg=#003853 ctermbg=24  gui=none cterm=none
 
-" set gitgutter bar's color
-hi SignColumn guibg=#111111  ctermbg=darkgray
 
 " draw a shadow range for indicated the 80 cols
 let &colorcolumn="80,".join(range(120,999),",")
-highlight ColorColumn ctermbg=235 guibg=#2c2d27
-hi ColorColumn  guibg=#111111  ctermbg=darkgray
+hi ColorColumn ctermbg=235 guibg=#2c2d27 guibg=#111111  ctermbg=darkgray
 
 " Set extra options when running in GUI mode
 if has("gui_running")
     let macvim_skip_colorscheme=1
-    set guifont=Menlo\ Regular:h14
-    set guioptions-=lT
-    " set guioptions-=e
-    set guitablabel=%M\ %t
+    set guifont=Menlo\ Regular:h15
 endif
 
 " Set utf8 as standard encoding and en_US as the standard language
@@ -326,11 +342,11 @@ set noswapfile
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Invisible characters 
+" Invisible characters
 set listchars=trail:.,tab:>-,eol:$,extends:#,nbsp:.
 " set list
 set nolist
-:noremap ,i :set list!<CR> 
+:noremap ,i :set list!<CR>
 
 " Use spaces instead of tabs
 set expandtab
@@ -338,9 +354,9 @@ set expandtab
 " Be smart when using tabs ;)
 set smarttab
 
-" 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
+" 1 tab == 2 spaces
+set shiftwidth=2
+set tabstop=2
 
 " Linebreak on 500 characters
 set lbr
@@ -380,7 +396,7 @@ function! CmdLine(str)
     exe "menu Foo.Bar :" . a:str
     emenu Foo.Bar
     unmenu Foo
-endfunction 
+endfunction
 
 function! VisualSelection(direction, extra_filter) range
     let l:saved_reg = @"
@@ -438,7 +454,7 @@ map <leader>sv :so ~/.vimrc<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Turn persistent undo on 
+" => Turn persistent undo on
 "  means that you can undo even when you close a buffer/VIM
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 try
