@@ -3,7 +3,6 @@
 let mapleader = ","
 let g:mapleader = ","
 
-set nocompatible              " be iMproved, required
 filetype off                  " required
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -15,8 +14,8 @@ if !1 | finish | endif
 if has('vim_starting')
  set nocompatible               " Be iMproved
 
- " Required:
- set runtimepath+=~/.vim/bundle/neobundle.vim/
+  " Required:
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
 " Required:
@@ -53,11 +52,8 @@ NeoBundle 'SirVer/ultisnips'
 " UI
 NeoBundle 'lisposter/vim-blackboard'
 NeoBundle 'scrooloose/nerdtree'
-
 NeoBundle 'jistr/vim-nerdtree-tabs'
-
 NeoBundle 'majutsushi/tagbar'
-
 NeoBundle 'bling/vim-airline'
 
 " Code Display
@@ -93,31 +89,31 @@ if neobundle#tap('emmet-vim') "{{{
 endif "}}}
 
 if neobundle#tap('vim-markdown') "{{{
-   let g:vim_markdown_folding_disabled=1
-   
-   call neobundle#untap()
+  let g:vim_markdown_folding_disabled=1
+
+  call neobundle#untap()
 endif "}}}
 
 if neobundle#tap('nerdtree') "{{{
-   " noremap <leader>n :NERDTreeToggle<CR>
-    let NERDTreeShowBookmarks = 1
-    let NERDTreeIgnore = []
-    let NERDTreeShowHidden = 1
-    let NERDTreeWinSize = 30
-    " These prevent accidentally loading files while in the NERDTree panel
-    autocmd FileType nerdtree noremap <buffer> <c-left> <nop>
-    autocmd FileType nerdtree noremap <buffer> <c-h> <nop>
-    autocmd FileType nerdtree noremap <buffer> <c-right> <nop>
-    autocmd FileType nerdtree noremap <buffer> <c-l> <nop>
+  " noremap <leader>n :NERDTreeToggle<CR>
+  let NERDTreeShowBookmarks = 1
+  let NERDTreeIgnore = []
+  let NERDTreeShowHidden = 1
+  let NERDTreeWinSize = 30
+  " These prevent accidentally loading files while in the NERDTree panel
+  autocmd FileType nerdtree noremap <buffer> <c-left> <nop>
+  autocmd FileType nerdtree noremap <buffer> <c-h> <nop>
+  autocmd FileType nerdtree noremap <buffer> <c-right> <nop>
+  autocmd FileType nerdtree noremap <buffer> <c-l> <nop>
 
-    call neobundle#untap()
+  call neobundle#untap()
 endif "}}}
 
 
 if neobundle#tap('vim-nerdtree-tabs') "{{{
   let g:nerdtree_tabs_open_on_gui_startup = 0
   noremap <leader>n :NERDTreeTabsToggle<CR>
-  
+
   call neobundle#untap()
 endif "}}}
 
@@ -132,7 +128,7 @@ if neobundle#tap('vim-airline') "{{{
   let g:airline_theme = "base16"
   let g:airline_left_sep = '▶'
   let g:airline_right_sep = '◀'
-  
+
   call neobundle#untap()
 endif "}}}
 
@@ -173,6 +169,11 @@ if neobundle#tap('unite.vim') "{{{
   nnoremap <silent> <leader>b :<C-u>Unite buffer bookmark<CR>
 
   call neobundle#untap()
+endif "}}}
+
+if neobundle#tap('indentLine') "{{{
+  let g:indentLine_faster = 1
+  nmap <silent><c-i> :<C-u>IndentLinesToggle<CR>
 endif "}}}
 
 
@@ -364,7 +365,7 @@ highlight CursorLine          guibg=#003853 ctermbg=24  gui=none cterm=none
 
 " draw a shadow range for indicated the 80 cols
 let &colorcolumn="80,".join(range(120,999),",")
-hi ColorColumn ctermbg=235 guibg=#2c2d27 guibg=#111111  ctermbg=darkgray
+hi ColorColumn ctermbg=235 guibg=#022036 ctermbg=darkgray
 
 " Set extra options when running in GUI mode
 if has("gui_running")
