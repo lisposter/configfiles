@@ -50,4 +50,8 @@ cd ~/.vim/bundle/YouCompleteMe
 ./install.sh
 
 cd ${CURR}
+
+# set mvim as git's default editor
+git config --global core.editor "/usr/local/bin/mvim -f" 
+
 exit
