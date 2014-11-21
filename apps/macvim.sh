@@ -46,6 +46,7 @@ echo "Installing tern deps ..."
 cd ~/.vim/bundle/tern_for_vim/
 npm i
 
+# compile ycm, TODO: move this to neobundle
 cd ~/.vim/bundle/YouCompleteMe
 ./install.sh
 
