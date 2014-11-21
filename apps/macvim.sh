@@ -1,6 +1,6 @@
 #!/bin/sh
 
-CURR=$(cd "$(dirname "$0")"; pwd)
+CURR=$(pwd)
 
 # intall xcode command line tools
 xcode-select --print-path
@@ -19,7 +19,7 @@ fi
 
 brew install ctags
 brew install cmake
-brew install macvim --with-lua
+brew install macvim --with-lua --override-system-vim
 
 if [ ! -e ~/.vim/temp_dirs/undodir ]; then
     # make vim temp dir
@@ -30,15 +30,16 @@ fi
 rm -rf ~/.vimrc
 ln -s ${CURR}/config/vimrc ~/.vimrc
 
-# install vundle
-if [ ! -e ~/.vim/bundle/Vundle.vim ]; then
-    echo "Installing: vim/vundle ..."
-    git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+# install neobundle
+if [ ! -e ~/.vim/bundle/neobundle.vim ]; then
+    echo "Installing: vim/neobundle ..."
+    mkdir -p ~/.vim/bundle
+    git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 fi
 
 # install vundle
 echo "Installing bundles ..."
-mvim +PluginInstall +qall
+vim +NeoBundleInstall +qall
 
 # install tern's deps
 echo "Installing tern deps ..."
