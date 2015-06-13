@@ -19,7 +19,7 @@ fi
 
 brew install ctags
 brew install cmake
-brew install macvim --with-lua --override-system-vim
+brew install macvim --with-lua --with-luajit --override-system-vim
 
 if [ ! -e ~/.vim/temp_dirs/undodir ]; then
     # make vim temp dir
