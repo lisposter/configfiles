@@ -39,7 +39,7 @@ fi
 
 # install vundle
 echo "Installing bundles ..."
-vim +NeoBundleInstall +qall
+~/.vim/bundle/neobundle.vim/bin/neoinstall
 
 # install tern's deps
 echo "Installing tern deps ..."
@@ -53,6 +53,6 @@ cd ~/.vim/bundle/YouCompleteMe
 cd ${CURR}
 
 # set mvim as git's default editor
-git config --global core.editor "/usr/local/bin/mvim -f" 
+git config --global core.editor "/usr/local/bin/mvim -f"
 
 exit

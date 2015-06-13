@@ -43,8 +43,14 @@ NeoBundle 'plasticboy/vim-markdown'
 
 " Completion
 NeoBundle 'Raimondi/delimitMate'
-NeoBundle 'Valloric/YouCompleteMe'
-NeoBundle 'marijnh/tern_for_vim'
+" NeoBundle 'Valloric/YouCompleteMe'
+NeoBundleLazy 'marijnh/tern_for_vim', {
+  \'autoload' : {
+  \'filetypes' : ['javascript']
+  \},
+  \'build': {
+  \  'others': 'npm install'
+  \}}
 NeoBundle 'SirVer/ultisnips'
 " NeoBundle 'honza/vim-snippets'
 " NeoBundle '1995eaton/vim-better-javascript-completion'
