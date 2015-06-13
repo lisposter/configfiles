@@ -41,15 +41,6 @@ fi
 echo "Installing bundles ..."
 ~/.vim/bundle/neobundle.vim/bin/neoinstall
 
-# install tern's deps
-echo "Installing tern deps ..."
-cd ~/.vim/bundle/tern_for_vim/
-npm i
-
-# compile ycm, TODO: move this to neobundle
-cd ~/.vim/bundle/YouCompleteMe
-./install.sh
-
 cd ${CURR}
 
 # set mvim as git's default editor
