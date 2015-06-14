@@ -250,6 +250,10 @@ map k gk
 " go to prev file
 map <Leader>p <C-^>
 
+" Open new split panes to right and bottom, which feels more natural
+set splitbelow
+set splitright
+
 " Smart way to move between windows
 map <C-j> <C-W>j
 map <C-k> <C-W>k
