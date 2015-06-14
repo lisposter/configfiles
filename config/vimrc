@@ -46,10 +46,13 @@ NeoBundle 'rust-lang/rust.vim'
 " Completion
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'Raimondi/delimitMate'
-" NeoBundle 'Valloric/YouCompleteMe'
+NeoBundle 'Valloric/YouCompleteMe', {
+  \"build": {
+  \   "others": './install.sh'
+  \}}
 NeoBundleLazy 'marijnh/tern_for_vim', {
-  \'autoload' : {
-  \'filetypes' : ['javascript']
+  \'autoload': {
+  \'filetypes': ['javascript']
   \},
   \'build': {
   \  'others': 'npm install'
