@@ -100,6 +100,12 @@ if neobundle#tap('emmet-vim') "{{{
   call neobundle#untap()
 endif "}}}
 
+if neobundle#tap('vim-json') "{{{
+  let g:vim_json_syntax_conceal = 0
+
+  call neobundle#untap()
+endif "}}}
+
 if neobundle#tap('vim-markdown') "{{{
   let g:vim_markdown_folding_disabled=1
 
